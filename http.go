@@ -83,6 +83,10 @@ func send(req *http.Request) (resp *http.Response, err error) {
 	return
 }
 
+func Send(req *http.Request) (resp *http.Response, err error) {
+	return send(req)
+}
+
 func post(url_ string, oauthHeaders map[string]string) (r *http.Response, err error) {
 	var req http.Request
 	req.Method = "POST"

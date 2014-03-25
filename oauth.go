@@ -1,5 +1,5 @@
 // A Go OAuth library, mainly created to interact with Twitter.
-// 
+//
 // Does header-based OAuth over HTTP or HTTPS.
 package oauth
 
@@ -276,6 +276,24 @@ func (o *OAuth) sign(request string) (string, error) {
 
 func timestamp() string {
 	return strconv.FormatInt(time.Now().Unix(), 10)
+}
+
+func (o *OAuth) MakeParams(url string, params map[string]string) (string, map[string]string) {
+	oParams := o.params()
+
+	escapeParams(oParams)
+	escapeParams(params)
+
+	allParams := mergeParams(oParams, params)
+	signature, err := o.sign(baseString("POST", url, allParams))
+	if err != nil {
+		panic("")
+	}
+
+	oParams["oauth_signature"] = PercentEncode(signature)
+
+	return addQueryParams(url, params), oParams
+
 }
 
 func (o *OAuth) Post(url string, params map[string]string) (r *http.Response, err error) {

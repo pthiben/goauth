@@ -1,11 +1,11 @@
 # Installation
 
-    goinstall github.com/alloy-d/goauth
+    go install github.com/pthiben/goauth
 
 # Usage
 
     import (
-        "github.com/alloy-d/goauth"
+        "github.com/pthiben/goauth"
         "os"
     )
 
